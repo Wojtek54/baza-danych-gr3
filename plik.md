@@ -304,28 +304,7 @@ nazwa_izby,
 primary key(adres_budynku, nazwa_izby),
 metraz int unsigned,
 id_wl' at line 2
-mysql> create table izba( adres_budynku, nazwa_izby, primary key(adres_budynku, nazwa_izby), metraz int unsigned, id_wlasciciela int, foreign key(id_wlasciciela) references postac(id_postaci) on delete cascade;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', nazwa_izby, primary key(adres_budynku, nazwa_izby), metraz int unsigned, id_wl' at line 1
-mysql> create table izba( adres_budynku int primary key, nazwa_izby int primary key, metraz int unsigned, id_wlascici
-ela int, foreign key(id_wlasciciela) references postac(id_postaci) on delete cascade;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
-mysql> create table "izba"( adres_budynku int primary key, nazwa_izby int primary key, metraz int unsigned, id_wlasciciela int, foreign key(id_wlasciciela) references postac(id_postaci) on delete cascade;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"izba"( adres_budynku int primary key, nazwa_izby int primary key, metraz int un' at line 1
-mysql> create table 'izba'( adres_budynku int primary key, nazwa_izby int primary key, metraz int unsigned, id_wlasciciela int, foreign key(id_wlasciciela) references postac(id_postaci) on delete cascade;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''izba'( adres_budynku int primary key, nazwa_izby int primary key, metraz int un' at line 1
-mysql> create table 'izba'( adres_budynku int not null, nazwa_izby int not null,primary key(adres_budynku, nazwa_izby
- metraz int unsigned, id_wlasciciela int, foreign key(id_wlasciciela) references postac(id_postaci) on delete cascade
-;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''izba'( adres_budynku int not null, nazwa_izby int not null,primary key(adres_bu' at line 1
-mysql> create table 'izba'( adres_budynku int not null, nazwa_izby int not null,primary key(adres_budynku, nazwa_izby) metraz int unsigned,wlasciciel int null, foreign key(wlasciciel) references postac(id_postaci) on delete cascade;  ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''izba'( adres_budynku int not null, nazwa_izby int not null,primary key(adres_bu' at line 1
-mysql> create table "izba"( adres_budynku int not null, nazwa_izby int not null,primary key(adres_budynku, nazwa_izby) metraz int unsigned,wlasciciel int null, foreign key(wlasciciel) references postac(id_postaci) on delete cascade;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"izba"( adres_budynku int not null, nazwa_izby int not null,primary key(adres_bu' at line 1
-mysql> create table izba( adres_budynku int not null, nazwa_izby int not null,primary key(adres_budynku, nazwa_izby) metraz int unsigned,wlasciciel int null, foreign key(wlasciciel) references postac(id_postaci) on delete cascade);
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'metraz int unsigned,wlasciciel int null, foreign key(wlasciciel) references post' at line 1
-mysql> create table izba( adres_budynku int not null, nazwa_izby varchar(40) not null,primary key(adres_budynku, nazw
-a_izby) metraz int unsigned,wlasciciel int null, foreign key(wlasciciel) references postac(id_postaci) on delete casc
-ade);
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'metraz int unsigned,wlasciciel int null, foreign key(wlasciciel) references post' at line 1
+
 mysql> create table izba( adres_budynku varchar(40) not null, nazwa_izby varchar(40) not null,primary key(adres_budyn
 ku, nazwa_izby), metraz int unsigned,wlasciciel int null, foreign key(wlasciciel) references postac(id_postaci) on de
 lete cascade);
@@ -343,12 +322,7 @@ mysql> desc izba
 +---------------+--------------+------+-----+---------+-------+
 4 rows in set (0.01 sec)
 
-mysql> alter table izba alter kolor set default "czarny";
-ERROR 1054 (42S22): Unknown column 'kolor' in 'izba'
-mysql> ADD [COLUMN] kolor_izby enum("czarny","rozowy","niebieski");
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ADD [COLUMN] kolor_izby enum("czarny","rozowy","niebieski")' at line 1
-mysql> ADD COLUMN kolor_izby enum("czarny","rozowy","niebieski");
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ADD COLUMN kolor_izby enum("czarny","rozowy","niebieski")' at line 1
+
 mysql> alter table izba
     -> add kolor_izby enum("czarny","czerwony","niebieski");
 Query OK, 0 rows affected (0.05 sec)
@@ -389,14 +363,7 @@ mysql> desc izba
 +---------------+---------------------------------------+------+-----+---------+-------+
 5 rows in set (0.00 sec)
 
-mysql> drop kolor_izby
-    -> ;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'kolor_izby' at line 1
-mysql> alter table izba
-    -> drop culumn kolor_izby;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'kolor_izby' at line 2
-mysql> alter table izba (culumn kolor_izby);
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(culumn kolor_izby)' at line 1
+
 mysql> ALTER TABLE izba DROP COLUMN kolor_izby;
 Query OK, 0 rows affected (0.08 sec)
 Records: 0  Duplicates: 0  Warnings: 0
@@ -435,3 +402,15 @@ Query OK, 0 rows affected (0.01 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 
 mysql>
+ przetwory | CREATE TABLE `przetwory` (
+  `id_przetworu` int NOT NULL AUTO_INCREMENT,
+  `rok_produkcji` date DEFAULT NULL,
+  `id_wykonawcy` int DEFAULT NULL,
+  `zawartosc` varchar(40) DEFAULT NULL,
+  `dodatek` varchar(40) DEFAULT NULL,
+  `id_konsumenta` int DEFAULT NULL,
+  PRIMARY KEY (`id_przetworu`),
+  KEY `id_wykonawcy` (`id_wykonawcy`),
+  KEY `id_konsumenta` (`id_konsumenta`),
+  CONSTRAINT `przetwory_ibfk_1` FOREIGN KEY (`id_wykonawcy`) REFERENCES `postac` (`id_postaci`),
+  CONSTRAINT `przetwory_ibfk_2` FOREIGN KEY (`id_konsumenta`) REFERENCES `postac` (`id_postaci`)
