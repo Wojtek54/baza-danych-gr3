@@ -1,0 +1,71 @@
+#Zadanie 4
+#4.1
+select * from kreatura natural join ekwipunek;
+#4.2
+select k.nazwa, e.ilosc, z.nazwa from kreatura k
+inner join ekwipunek e on k.idKreatury=e.idKreatury
+inner join zasob z on z.idZasobu=e.idZasobu
+where z.rodzaj = 'jedzenie'
+order by k.dataUr desc limit 5;
+
+#4.3
+select concat(k1.nazwa, ' - ', k2. nazwa) from kreatura k1, kreatura k2
+where k1.idKreatury - k2.idKreatury = 5;
+
+#Zadanie 5
+#5.1
+use infs_orzolw;
+select k.rodzaj, avg(e.ilosc * z.waga) from kreatura k
+inner join ekwipunek e on k.idKreatury=e.idKreatury
+inner join zasob z on z.idZasobu=e.idZasobu
+where k.rodzaj not in ('malpa','waz')
+and e.ilosc < 30 group by k.rodzaj;
+#5.2
+select a.nazwa, a.rodzaj, a.dataUr from kreatura a, 
+(select min(dataUr) min, max(dataUr) max 
+from kreatura group by rodzaj) p
+where p.min = a.dataUr or p.max=a.dataUr;
+#z union
+select 'najmlodsza', a.maxData, b.nazwa, a.rodzaj 
+from (select max(dataUr) maxData, rodzaj from kreatura
+group by rodzaj) a,
+(select nazwa, dataUr from kreatura) b
+where a.maxData = b.dataUr
+union
+select 'najstarsza', a.minData, b.nazwa, a.rodzaj 
+from (select min(dataUr) minData, rodzaj from kreatura
+group by rodzaj) a,
+(select nazwa, dataUr from kreatura) b
+where a.minData = b.dataUr;
+
+#lab08
+#Zadanie 1
+#1.1
+create table kreatura2 as select * from wikingowie.kreatura;
+create table uczestnicy as select * from wikingowie.uczestnicy;
+create table etapy_wyprawy as select * from wikingowie.etapy_wyprawy;
+create table sektor as select * from wikingowie.sektor;
+create table wyprawa as select * from wikingowie.wyprawa;
+#1.2
+select nazwa from kreatura left join uczestnicy on kreatura.idKreatury=uczestnicy.id_uczestnika
+where uczestnicy.id_uczestnika is null group by nazwa;
+select * from wikingowie.kreatura;
+select rodzaj, group_concat(nazwa separator ' '), count(*)
+from kreatura group by rodzaj;
+#1.3
+select wyprawa.nazwa, sum(ekwipunek.ilosc) from wyprawa
+inner join uczestnicy on wyprawa.id_wyprawy=uczestnicy.id_wyprawy
+inner join ekwipunek on ekwipunek.idKreatury=uczestnicy.id_uczestnika
+group by wyprawa.nazwa;
+
+#Zadanie 2
+#2.1
+select wyprawa.nazwa, count(uczestnicy.id_uczestnika), group_concat(kreatura.nazwa separator ',')
+as imiona_uczestnikow from wyprawa left join uczestnicy on wyprawa.id_wyprawy=uczestnicy.id_wyprawy 
+left join kreatura on kreatura.idKreatury=uczestnicy.id_uczestnika group by wyprawa.nazwa;
+#2.2
+select ew.kolejnosc, s.nazwa, k.nazwa
+from wyprawa w inner join etapy_wyprawy ew on w.id_wyprawy=ew.idWyprawy
+inner join sektor s on s.id_sektora=ew.sektor
+inner join kreatura k on k.idkreatury=w.kierownik 
+order by ew.kolejnosc ASC, w.data_rozpoczecia ASC;
