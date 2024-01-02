@@ -69,3 +69,16 @@ from wyprawa w inner join etapy_wyprawy ew on w.id_wyprawy=ew.idWyprawy
 inner join sektor s on s.id_sektora=ew.sektor
 inner join kreatura k on k.idkreatury=w.kierownik 
 order by ew.kolejnosc ASC, w.data_rozpoczecia ASC;
+
+#Zadanie 5
+use infs_orzolw;
+select * from kreatura;
+select * from wyprawa;
+select datediff(curdate(), '2023-12-01');
+select datediff('2023-12-01', curdate());
+select k.nazwa, datediff(w.data_rozpoczecia, k.dataUr)
+from kreatura k 
+inner join uczestnicy u on u.id_uczestnika=k.idKreatury
+inner join etapy_wyprawy ew on u.id_wyprawy=ew.idWyprawy
+inner join wyprawa w on w.id_wyprawy=u.id_wyprawy
+where ew.sektor=7;
