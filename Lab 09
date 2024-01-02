@@ -1,0 +1,46 @@
+# Lab 09
+#Lab_09
+```sql
+DELIMITER //
+create trigger kreatura_before_insert
+before insert on kreatura
+for each row
+begin
+if new.waga <=0
+Then
+set new.waga = 1;
+End if;
+End;
+//
+
+select * from kreatura;
+insert into kreatura values(66, 'Krysia', 'wiking',  '2030-12-01', '50', '70');
+insert into kreatura values(67, 'Marysia', 'wiking',  '2030-12-01', '0', '70');
+```
+create table archiwum_wypraw (id_wyprawy int primary key not null auto_increment, 
+nazwa varchar(40), 
+data_rozpoczecia date,
+data_zakonczenia date,
+kierownik varchar(50));
+select * from kreatura;
+select * from wyprawa;
+
+
+
+select w.id_wyprawy
+
+
+
+DELIMITER //
+create trigger wyprawa_after_delete
+after delete on wyprawa 
+for each row
+begin
+insert into archiwum_wypraw 
+select w.id_wyprawu,
+w.nazwa, w.data_rozpoczecia, w.data_zakonczenia, k.nazwa from wyprawa w 
+inner join kreatura k on k.idKreatury=w.kierownik
+where id_wyprawy =1;
+(select k.nazwa from kreatura k insert into wyprawa w on k.idKreatury = w.kierownik))
+End
+//
