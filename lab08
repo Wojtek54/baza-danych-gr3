@@ -1,5 +1,5 @@
 #Zadanie 4
-#4.1
+##4.1
 select * from kreatura natural join ekwipunek;
 #4.2
 select k.nazwa, e.ilosc, z.nazwa from kreatura k
