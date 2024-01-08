@@ -1,0 +1,61 @@
+#Zadanie 1
+select * from pracownik;
+select imie, nazwisko, YEAR(data_urodzenia) as rok_urodzenia from pracownik; 
+#Zadanie 2
+select imie, nazwisko, (year(now()) - year(data_urodzenia)) as wiek from pracownik;
+#Zadanie 3
+select * from dzial;
+select * from pracownik;
+select count(id_pracownika) as liczba_pracowników, dzial.nazwa from pracownik
+ inner join dzial on dzial.id_dzialu = pracownik.dzial group by dzial.nazwa;
+#Zadanie 4
+select * from kategoria;
+select * from towar;
+select nazwa_kategori, count(id_towaru)  from kategoria k
+inner join towar on k.id_kategori = towar.kategoria
+group by nazwa_kategori;
+#Zadanie 5
+select * from towar;
+select nazwa_kategori, group_concat(nazwa_towaru) from kategoria k
+inner join towar t on t.kategoria = k.id_kategori group by nazwa_kategori;
+#Zadanie 6
+select * from pracownik;
+select round(avg(pensja), 2) as zaokraglona_pensja from pracownik;
+#Zadanie 7
+select * from pracownik;
+select pensja from pracownik where (year(now()) - year(data_zatrudnienia) >= 5);
+#Zadanie 8
+select * from stan_magazynowy;
+select * from towar;
+select towar from stan_magazynowy  order by ilosc ASC limit 10;
+#Zadanie 9
+
+
+
+
+
+
+
+# ZADANIA 2
+##Zadanie 1
+select d.nazwa, min(p.pensja), max(p.pensja), avg(p.pensja) 
+from pracownik p inner join dzial d on p.dzial=d.id_dzialu
+group by d.id_dzialu;
+##Zadanie 2
+select * from klient;
+select * from zamowienie;
+select * from pozycja_zamowienia;
+select k.pelna_nazwa, z.numer_zamowienia, sum(pz.ilosc * pz.cena) as wartosc from zamowienie z
+inner join pozycja_zamowienia pz on z.id_zamowienia=pz.zamowienie
+inner join klient k on k.id_klienta=z.klient
+group by k.id_klienta, z.id_zamowienia
+order by wartosc desc limit 10;
+##Zadanie 3 
+select year(z.data_zamowienia),
+month(z.data_zamowienia), sum(pz.ilosc * pz.cena) as wartosc from zamowienie z
+inner join pozycja_zamowienia pz on z.id_zamowienia=pz.zamowienie
+group by year(z.data_zamowienia), month(z.data_zamowienia) order by wartosc DESC;
+##Zadanie 7
+select * from pozycja_zamowienia;
+select * from towar;
+select year(z.data_zamowienia),
